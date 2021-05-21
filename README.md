@@ -1,4 +1,15 @@
 # IPCSystemPatrimony
+##Funções
+[x]cadastrar();
+[x]inventario();
+[x]mostra1();
+[x]baixa();
+[ ]edicao();
+[ ]reg_movimentacao();
+[ ]manutencao();
+[ ]reg_recebimento();
+
+##Pontuação
 [ ] 02 pts Atender os requisitos<br>
 [ ] 02 pts Explicação detalhada do código<br>
 [ ] 01 pt Uso de Vetor<br>
