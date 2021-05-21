@@ -1,16 +1,16 @@
 # IPCSystemPatrimony
 
-##Funções <br>
-[x]cadastrar();<br>
-[x]inventario();<br>
-[x]mostra1();<br>
-[x]baixa();<br>
-[ ]edicao();<br>
-[ ]reg_movimentacao();<br>
-[ ]manutencao();<br>
-[ ]reg_recebimento();<br>
+## Funções <br>
+[x] cadastrar();<br>
+[x] inventario();<br>
+[x] mostra1();<br>
+[x] baixa();<br>
+[ ] edicao();<br>
+[ ] reg_movimentacao();<br>
+[ ] manutencao();<br>
+[ ] reg_recebimento();<br>
 
-##Pontuação <br>
+## Pontuação <br>
 [ ] 02 pts Atender os requisitos<br>
 [ ] 02 pts Explicação detalhada do código<br>
 [ ] 01 pt Uso de Vetor<br>
