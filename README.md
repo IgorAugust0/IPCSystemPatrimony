@@ -10,7 +10,7 @@
 [ ]manutencao();<br>
 [ ]reg_recebimento();<br>
 
-##Pontuação
+##Pontuação <br>
 [ ] 02 pts Atender os requisitos<br>
 [ ] 02 pts Explicação detalhada do código<br>
 [ ] 01 pt Uso de Vetor<br>
