@@ -1,13 +1,14 @@
 # IPCSystemPatrimony
-##Funções
-[x]cadastrar();
-[x]inventario();
-[x]mostra1();
-[x]baixa();
-[ ]edicao();
-[ ]reg_movimentacao();
-[ ]manutencao();
-[ ]reg_recebimento();
+
+##Funções <br>
+[x]cadastrar();<br>
+[x]inventario();<br>
+[x]mostra1();<br>
+[x]baixa();<br>
+[ ]edicao();<br>
+[ ]reg_movimentacao();<br>
+[ ]manutencao();<br>
+[ ]reg_recebimento();<br>
 
 ##Pontuação
 [ ] 02 pts Atender os requisitos<br>
