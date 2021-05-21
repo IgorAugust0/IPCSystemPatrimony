@@ -1,11 +1,11 @@
 # IPCSystemPatrimony
-[ ] 02 pts Atender os requisitos
-[ ] 02 pts Explicação detalhada do código
-[ ] 01 pt Uso de Vetor
-[x] 01 pt Uso de Função
-[x] 01 pt Uso de Estrutura
-[ ] 01 pt Uso de Ponteiro
-[ ] 02 pts Persistência dos dados em arquivo
+[ ] 02 pts Atender os requisitos<br>
+[ ] 02 pts Explicação detalhada do código<br>
+[ ] 01 pt Uso de Vetor<br>
+[x] 01 pt Uso de Função<br>
+[x] 01 pt Uso de Estrutura<br>
+[ ] 01 pt Uso de Ponteiro<br>
+[ ] 02 pts Persistência dos dados em arquivo<br>
 
 ## O trabalho será válido se:
 * For codificado em **Linguagem C**
