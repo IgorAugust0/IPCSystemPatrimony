@@ -6,6 +6,7 @@
 [x] mostra1();<br>
 [x] baixa();<br>
 [ ] edicao();<br>
+[ ] movimentacao();<br>
 [ ] reg_movimentacao();<br>
 [ ] manutencao();<br>
 [ ] reg_recebimento();<br>

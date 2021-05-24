@@ -13,10 +13,10 @@ typedef struct{
     char status[50];
 } patrimonio;
 
-patrimonio patrimonios[MAX_PATRIMONIOS]; //lista dos patrimonios usando a struct patrimonio
-//MAX_PATRIMONIOS define o limite da quantidade de patrimonios
+patrimonio patrimonios[MAX_PATRIMONIOS];    //lista dos patrimonios usando a struct patrimonio
+                                            //MAX_PATRIMONIOS define o limite da quantidade de patrimonios
 
-void cadastrar(/*"struct patrimonio T[]" <- não segue o template*/){
+void cadastrar(){
 	char nome[50];
     int data;
     int id;
@@ -38,7 +38,7 @@ void cadastrar(/*"struct patrimonio T[]" <- não segue o template*/){
         scanf("%s",&nome);
         printf("\nSetor: ");
         scanf("%s",&setor);
-        printf("\nData: ");
+        printf("\nData de aquisicao: ");
         scanf("%d",&data);
         printf("\nMarca: ");
         scanf("%s",&marca);
@@ -51,7 +51,7 @@ void cadastrar(/*"struct patrimonio T[]" <- não segue o template*/){
             scanf("%d",&datamanutencao);
         }
         for (int i = 0;i< MAX_PATRIMONIOS;i++){
-            if (patrimonios[i].ativo==0){ //0->inativo...1->ativo - usar na baixa de patrimonios
+            if (patrimonios[i].ativo==0){                   //0->inativo...1->ativo - usar na baixa de patrimonios
                 patrimonios[i].data = data;
                 patrimonios[i].id = id;
                 strcpy(patrimonios[i].nome, nome);
@@ -65,7 +65,7 @@ void cadastrar(/*"struct patrimonio T[]" <- não segue o template*/){
         printf("\n1 - Continuar\n0 - Sair\n");
         scanf("%d",&op);}}
 
-void inventario(/*"struct patrimonio T[]" <- não segue o template*/){
+void inventario(){
     int id;
     system("cls");
     printf("-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
@@ -78,7 +78,7 @@ void inventario(/*"struct patrimonio T[]" <- não segue o template*/){
         printf("\nID: #%d",patrimonios[i].id);
         printf("\nNome: %s\n\n",patrimonios[i].nome);}}}
 
-void mostra1(/*"struct patrimonio T[]" <- não segue o template*/){
+void mostra1(){
     int id;
     int op = 1;
     system("cls");
@@ -106,7 +106,7 @@ void mostra1(/*"struct patrimonio T[]" <- não segue o template*/){
     }printf("\n\nDeseja pesquisar outro Patrimonio?\n0 - Nao\n1 - Sim\n");
     scanf("%d",&op);}}
 
-void baixa(/*"struct patrimonio T[]" <- não segue o template*/){
+void baixa(){
     system("cls");
     printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
     printf("Efetuar Baixa de um Patrimonio: \n");
@@ -117,14 +117,13 @@ void baixa(/*"struct patrimonio T[]" <- não segue o template*/){
     scanf("%d",&id);
     for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
         if(patrimonios[i].id==id){
-        strcpy(patrimonios[i].status,"inativo"); //torna o status patrimonio como inativo
-        patrimonios[i].ativo=0; //tira o patrimonio do inventario (ainda é possivel acessar pelo mostra1())
+        strcpy(patrimonios[i].status,"inativo");            //torna o status patrimonio como inativo
+        patrimonios[i].ativo=0;                             //tira o patrimonio do inventario (ainda ï¿½ possivel acessar pelo mostra1())
         printf("\nBaixa efetuada com sucesso!\n\n");
 }}}
 
 void menu(){
 	int opcao;
-	/*"struct patrimonio T[30]" <- não segue o template*/
 	while(1){
         printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
 		printf("\nBem vindo ao Sistema de controle do patrimonios dos equipamentos da UFU!\n");
@@ -133,7 +132,7 @@ void menu(){
 		printf("\n2- Inventario de patrimonios");
 		printf("\n3- Mostrar um Patrimonio detalhadamente");
         printf("\n4- Efetuar Baixa de um Patrimonio");
-		printf("\n9- Sair ");
+		printf("\n0- Sair ");
 		printf("\n\nDigite opcao: ");
 		scanf("%d", &opcao);
 		if(opcao == 1) cadastrar();
@@ -141,10 +140,11 @@ void menu(){
 		if(opcao == 3) mostra1();
 		if(opcao == 4) baixa();
 		//if(opcao == 5) edicao();
-		//if(opcao == 6) reg_movimentacao();
-		//if(opcao == 7) manutencao();
-		//if(opcao == 8) reg_recebimento();
-		if(opcao == 9) return;}}
+        //if(opcao == 6) movimentacao();
+		//if(opcao == 7) reg_movimentacao();
+		//if(opcao == 8) manutencao();
+		//if(opcao == 9) reg_recebimento();
+		if(opcao == 0) return;}}
 
 int main(){
 	menu();
