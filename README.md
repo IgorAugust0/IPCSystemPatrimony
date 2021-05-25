@@ -14,7 +14,7 @@
 ## Pontuação <br>
 [ ] 02 pts Atender os requisitos<br>
 [ ] 02 pts Explicação detalhada do código<br>
-[ ] 01 pt Uso de Vetor<br>
+[x] 01 pt Uso de Vetor<br> -> strings 
 [x] 01 pt Uso de Função<br>
 [x] 01 pt Uso de Estrutura<br>
 [ ] 01 pt Uso de Ponteiro<br>

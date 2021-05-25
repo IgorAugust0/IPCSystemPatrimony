@@ -3,7 +3,7 @@
 #define MAX_PATRIMONIOS 50
 typedef struct{
     char nome[50];
-    int data;
+    char data[12];
     int ativo; //0->inativo...1->ativo;
     int id;
     char marca[50];
@@ -11,6 +11,8 @@ typedef struct{
     char tecnico[50];
     int datamanutencao;
     char status[50];
+    char transferencia[20];
+    char data_transferencia[12]
 } patrimonio;
 
 patrimonio patrimonios[MAX_PATRIMONIOS];    //lista dos patrimonios usando a struct patrimonio
@@ -18,12 +20,12 @@ patrimonio patrimonios[MAX_PATRIMONIOS];    //lista dos patrimonios usando a str
 
 void cadastrar(){
 	char nome[50];
-    int data;
+    char data[12];
     int id;
     char marca[50];
     char setor[50];
     char tecnico[50];
-    int datamanutencao;
+    char datamanutencao[12];
     char status[50];
     int ativo;
     int op=1;
@@ -39,7 +41,7 @@ void cadastrar(){
         printf("\nSetor: ");
         scanf("%s",&setor);
         printf("\nData de aquisicao: ");
-        scanf("%d",&data);
+        scanf("%s",&data);
         printf("\nMarca: ");
         scanf("%s",&marca);
         printf("\nStatus: ");
@@ -48,12 +50,12 @@ void cadastrar(){
             printf("\nTecnico responsavel: ");
             scanf("%s",&tecnico);
             printf("\nInicio da manutencao: ");
-            scanf("%d",&datamanutencao);
+            scanf("%s",&datamanutencao);
         }
         for (int i = 0;i< MAX_PATRIMONIOS;i++){
             if (patrimonios[i].ativo==0){                   //0->inativo...1->ativo - usar na baixa de patrimonios
-                patrimonios[i].data = data;
                 patrimonios[i].id = id;
+                strcpy(patrimonios[i].data, data);
                 strcpy(patrimonios[i].nome, nome);
                 strcpy(patrimonios[i].marca, marca);
                 strcpy(patrimonios[i].status, status);
@@ -94,13 +96,13 @@ void mostra1(){
             printf("\nNumero %d",i+1);
             printf("\nID: #%d",patrimonios[i].id);
             printf("\nNome: %s",patrimonios[i].nome);
-            printf("\nData: %d",patrimonios[i].data);
+            printf("\nData: %s",patrimonios[i].data);
             printf("\nSetor: %s",patrimonios[i].setor);
             printf("\nMarca: %s",patrimonios[i].marca);
             printf("\nStatus: %s",patrimonios[i].status);
             if (strcmp (patrimonios[i].status, "manutencao")== 0){
             printf("\nTecnico: %s",patrimonios[i].tecnico);
-            printf("\nData Manutencao: %d",patrimonios[i].datamanutencao);
+            printf("\nData Manutencao: %s",patrimonios[i].datamanutencao);
         }
         }
     }printf("\n\nDeseja pesquisar outro Patrimonio?\n0 - Nao\n1 - Sim\n");
@@ -122,6 +124,21 @@ void baixa(){
         printf("\nBaixa efetuada com sucesso!\n\n");
 }}}
 
+/*void movimentacao(){
+    system("cls");
+    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
+    printf("Movimentação de um Patrimonio: \n");
+    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
+    int id;
+    printf("Digite o ID do patrimonio que foi movido: #");
+    scanf("%d",&id);
+    for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
+        if(patrimonios[i].id==id){
+        printf("\nNome: %s",patrimonios[i].nome);
+        
+        
+        }
+}*/
 void menu(){
 	int opcao;
 	while(1){
@@ -145,7 +162,8 @@ void menu(){
 		//if(opcao == 8) manutencao();
 		//if(opcao == 9) reg_recebimento();
 		if(opcao == 0) return;}}
-
+        
 int main(){
 	menu();
 }
+
