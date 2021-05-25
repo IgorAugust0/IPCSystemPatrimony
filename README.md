@@ -5,11 +5,11 @@
 [x] inventario();<br>
 [x] mostra1();<br>
 [x] baixa();<br>
-[ ] edicao();<br>
+[ ] edicao(); luís<br>
 [ ] movimentacao();<br>
-[ ] reg_movimentacao();<br>
-[ ] manutencao();<br>
-[ ] reg_recebimento();<br>
+[ ] reg_movimentacao();igor<br>
+[ ] manutencao(); danilo<br>
+[ ] reg_recebimento(); gabriel<br>
 
 ## Pontuação <br>
 [ ] 02 pts Atender os requisitos<br>
