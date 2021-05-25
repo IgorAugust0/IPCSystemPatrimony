@@ -5,10 +5,10 @@
 [x] inventario();<br>
 [x] mostra1();<br>
 [x] baixa();<br>
-Luís - [ ] edicao(); luís<br>
+Luís - [ ] edicao();<br>
 Cássio - [ ] movimentacao();<br>
-Igor - [ ] reg_movimentacao();igor<br>
-Danilo - [ ] manutencao(); danilo<br>
+Igor - [ ] reg_movimentacao();<br>
+Danilo - [ ] manutencao();<br>
 Gabriel - [ ] reg_recebimento();<br>
 
 ## Pontuação <br>
