@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h> //Para a função getch();
 #define MAX_PATRIMONIOS 50
 typedef struct{
     char nome[50];
@@ -19,10 +20,10 @@ typedef struct{
     char data_retorno[12];
     char setor_origem [50];
     char setor_destino [50];
-    int status_transferencia;               //usar no reg_movimentacao - se for 1 o patrimonio deve ser mostrado, se for 0 não
+    int status_transferencia;               //Se for igual a 1 o patrimonio deve ser mostrado, se for 0 não
 } patrimonio;
 
-patrimonio patrimonios[MAX_PATRIMONIOS];    //lista dos patrimonios usando a struct patrimonio
+patrimonio patrimonios[MAX_PATRIMONIOS];    //Vetor de patrimonios usando a struct patrimonio
                                             //MAX_PATRIMONIOS define o limite da quantidade de patrimonios
 
 void cadastrar(){
@@ -36,11 +37,19 @@ void cadastrar(){
     char status[50];
     int ativo;
     int op=1;
-    system("cls"); //limpa o terminal
+    system("cls"); //Limpa o terminal
+
+
     while(op!=0){
-        printf("-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
-        printf("Cadastrar um Patrimonio: \n");
-        printf("-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
+
+        FILE *pat_arq; //Cria o ponteiro para o arquivo
+
+        pat_arq = fopen("arquivo_patrimonios.txt","a"); //Abre o arquivo no modo de adição de dados "a"
+        //Caso o arquivo não exista, criará um novo
+
+        printf("*-------------------------*\n");
+        printf("| Cadastrar um Patrimonio |\n");
+        printf("*-------------------------*\n");
         printf("ID: ");
         scanf("%d",&id);
         printf("\nNome: ");
@@ -59,43 +68,56 @@ void cadastrar(){
                 strcpy(patrimonios[i].marca, marca);
                 strcpy(patrimonios[i].status, "OK!");
                 strcpy(patrimonios[i].setor, setor);
-
                 patrimonios[i].ativo=1;
+
+                //Registra os dados no arquivo
+                fprintf(pat_arq, "\nId:        #%d\n", id);
+                fprintf(pat_arq, "Nome:      %s\n", nome);
+                fprintf(pat_arq, "Setor:     %s\n", setor);
+                fprintf(pat_arq, "Aquisição: %s\n", data);
+                fprintf(pat_arq, "Marca:     %s\n\n", marca);
+                fprintf(pat_arq,"--------------------------\n");
+
+                fclose(pat_arq);      //Fecha o arquivo
+
+                printf("\nCadastro realizado com sucesso!\n");
                 break;}}
         printf("\n1 - Continuar\n0 - Sair\n");
         scanf("%d",&op);}}
 
 void inventario(){
-    int id;
+    int id,d;
     system("cls");
-    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
-    printf("Inventario de Patrimonios: \n");
-    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
+    printf("*----------------------------*\n");
+    printf("| Inventario de Patrimonios  |\n");
+    printf("*----------------------------*\n");
     for (int i = 0; i < MAX_PATRIMONIOS; i++){
         if (patrimonios[i].ativo==1){
         printf("\n---------------");
-        printf("\nID: #%d",patrimonios[i].id);
-        printf("\nNome: %s\n\n",patrimonios[i].nome);}}}
+        printf("\nID:   #%d",patrimonios[i].id);
+        printf("\nNome: %s\n\n",patrimonios[i].nome);
+        }}
+        printf("Digite qualquer tecla para continuar\n\n");
+        getch();} //pausa na tela até uma tecla ser digitada
 
 void mostra1(){
     int id;
     int op = 1;
     system("cls");
     while(op!=0){
-        printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
-        printf("Exibir um Patrimonio detalhadamente: \n");
-        printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
+        printf("*-------------------------------------*\n");
+        printf("| Exibir um Patrimonio detalhadamente |\n");
+        printf("*-------------------------------------*\n");
         printf("\nDigite o id do patrimonio: #\n");
         scanf("%d",&id);
         for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
         if (patrimonios[i].id == id){
             printf("\n---------------");
-            printf("\nNumero %d",i+1);
-            printf("\nID: #%d",patrimonios[i].id);
-            printf("\nNome: %s",patrimonios[i].nome);
-            printf("\nData: %s",patrimonios[i].data);
-            printf("\nSetor: %s",patrimonios[i].setor);
-            printf("\nMarca: %s",patrimonios[i].marca);
+            printf("\nID:     #%d",patrimonios[i].id);
+            printf("\nNome:   %s",patrimonios[i].nome);
+            printf("\nData:   %s",patrimonios[i].data);
+            printf("\nSetor:  %s",patrimonios[i].setor);
+            printf("\nMarca:  %s",patrimonios[i].marca);
             printf("\nStatus: %s\n",patrimonios[i].status);
         }
         }printf("\n\nDeseja pesquisar outro Patrimonio?\n0 - Nao\n1 - Sim\n");
@@ -104,9 +126,9 @@ void mostra1(){
 
 void baixa(){
     system("cls");
-    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
-    printf("Efetuar Baixa de um Patrimonio: \n");
-    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
+    printf("*--------------------------------*\n");
+    printf("| Efetuar Baixa de um Patrimonio | \n");
+    printf("*--------------------------------*\n");
     int id;
     inventario();
     printf("Digite o ID do patrimonio a ser removido: #");
@@ -120,9 +142,9 @@ void baixa(){
 
 void movimentacao(){
     system("cls");
-    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
-    printf("Movimentacao de um Patrimonio: \n");
-    printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
+    printf("*-----------------------*\n");
+    printf("| Transferir Patrimonio |\n");
+    printf("*-----------------------*\n");
     int id,op=1;
     char setor_destino[50];
     char data_transferencia[12];
@@ -185,16 +207,17 @@ void movimentacao(){
 void menu(){
 	int opcao;
 	while(1){
-        printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-		printf("\nBem vindo ao Sistema de controle do patrimonios dos equipamentos da UFU!\n");
-        printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n");
+        system("cls");
+        printf("\n*---------------------------------------------------------------------------*");
+		printf("\n| Bem vindo ao Sistema de controle do patrimonios dos equipamentos da UFU! |");
+        printf("\n*---------------------------------------------------------------------------*");
 		printf("\n1- Cadastrar Patrimonio");
 		printf("\n2- Inventario de patrimonios");
 		printf("\n3- Mostrar um Patrimonio detalhadamente");
         printf("\n4- Efetuar Baixa de um Patrimonio");
         printf("\n6- Efetuar Transferencia");
 		printf("\n0- Sair ");
-		printf("\n\nDigite opcao: ");
+		printf("\n\nDigite uma  opcao: ");
 		scanf("%d", &opcao);
 		if(opcao == 1) cadastrar();
 		if(opcao == 2) inventario();
@@ -210,4 +233,3 @@ void menu(){
 int main(){
 	menu();
 }
-
