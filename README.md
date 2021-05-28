@@ -5,6 +5,8 @@
 [x] inventario();<br>
 [x] mostra1();<br>
 [x] baixa();<br>
+[x] movimentacao();<br>
+
 Luís - [ ] edicao();<br>
 Igor - [ ] reg_movimentacao();<br>
 Danilo - [ ] manutencao();<br>
