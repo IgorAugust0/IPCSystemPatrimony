@@ -17,8 +17,8 @@ Gabriel - [ ] reg_recebimento();<br>
 [x] 01 pt Uso de Vetor -> strings<br>
 [x] 01 pt Uso de Função<br>
 [x] 01 pt Uso de Estrutura<br>
-[ ] 01 pt Uso de Ponteiro<br>
-[ ] 02 pts Persistência dos dados em arquivo<br>
+[x] 01 pt Uso de Ponteiro<br>
+[x] 02 pts Persistência dos dados em arquivo<br>
 
 ## O trabalho será válido se:
 * For codificado em **Linguagem C**
