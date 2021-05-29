@@ -6,9 +6,9 @@
 [x] mostra1();<br>
 [x] baixa();<br>
 [x] movimentacao();<br>
+[x] reg_movimentacao();<br>
 
 Luís - [ ] edicao();<br>
-Igor - [ ] reg_movimentacao();<br>
 Danilo - [ ] manutencao();<br>
 Gabriel - [ ] reg_recebimento();<br>
 
