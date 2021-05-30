@@ -118,11 +118,18 @@ void mostra1(){
             printf("\nData:   %s",patrimonios[i].data);
             printf("\nSetor:  %s",patrimonios[i].setor);
             printf("\nMarca:  %s",patrimonios[i].marca);
-            printf("\nStatus: %s\n",patrimonios[i].status);
+            printf("\nStatus: %s",patrimonios[i].status);
+            if (strcmp(patrimonios[i].status,"Em Manutencao")==0){
+                printf("\n-----------------------------------------------");
+                printf("\nTecnico Responsavel: %s",patrimonios[i].tecnico);
+                printf("\nData da Manutencao:  %s",patrimonios[i].datamanutencao);
+                printf("\nDescricao:  %s\n",patrimonios[i].descricao_status);
+            }
         }
         }printf("\n\nDeseja pesquisar outro Patrimonio?\n0 - Nao\n1 - Sim\n");
     scanf("%d",&op);
     }}
+
 
 void baixa(){
     system("cls");
@@ -218,15 +225,14 @@ void movimentacao(){
                 fprintf(patm_arq, "Setor de Origem:       %s\n",patrimonios[i].setor_origem );
 
                 strcpy(patrimonios[i].setor_destino,setor_destino);
-                fprintf(patm_arq, "Setor Destino:        %s\n",patrimonios[i].setor_destino );
+                fprintf(patm_arq, "Setor Destino:         %s\n",patrimonios[i].setor_destino );
                 fprintf(patm_arq,"-------------------------------------------\n");
 
                 patrimonios[i].status_transferencia = 1;
                 strcpy(patrimonios[i].status,"Transferido Provisoriamente");
                 printf("\nTransferencia efetuada com sucesso!\n\n");
                 fclose(patm_arq);      //Fecha o arquivo
-}
-        }}
+}}}
                if (opc ==3){
                 for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
                 if(patrimonios[i].id==id){
@@ -234,8 +240,7 @@ void movimentacao(){
                 patrimonios[i].status_transferencia = 0;}}
                 printf("\nRetorno efetuado com sucesso!\n\n");
                 fclose(patm_arq);}
-}}
-     printf("\n1 - Continuar\n0 - Sair\n");
+}}      printf("\n1 - Continuar\n0 - Sair\n");
         scanf("%d",&op);}}
 
 void reg_movimentacao(){
@@ -258,12 +263,76 @@ void reg_movimentacao(){
                 printf("\nSetor de Origem: %s\n",patrimonios[i].setor_origem);
                 printf("\nSetor Atual: %s\n",patrimonios[i].setor);
                 printf("\nData de Transferencia: %s\n\n",patrimonios[i].data_transferencia);}
-        }
-        }
-        printf("Digite qualquer tecla para continuar\n\n");
-        getch();}
+}}        printf("Digite qualquer tecla para continuar\n\n");
+          getch();}
 
+void manutencao(){ //cadastra manutencoes para um patrimonio
+    int id;
+    int op = 1;
+    int opcao;
+    char datamanutencao[12];
+    char descricao_status[100];
+    char tecnico[50];
 
+    system("cls");
+
+    FILE *patma_arq;
+
+    while(op!=0){
+        printf("*-------------------------------------*\n");
+        printf("| Manutencao do Patrimonio |\n");
+        printf("*-------------------------------------*\n");
+        printf("\nDigite o id do patrimonio: #\n");
+        scanf("%d",&id);
+        for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
+        if (patrimonios[i].id == id){
+            printf("\nEscolha uma opcao:\n");
+            printf("\n1-Efetuar Manutencao");
+            printf("\n2-Concluir Manutencao\n");
+            scanf("%d",&opcao);
+            if(opcao==1){
+                printf("\n-----------------------------------\n");
+                printf("| Informacoes do Patrimonio |\n"); //mostra as informacoes do patrimonio para checar se é o correto
+                printf("\nID:     #%d",patrimonios[i].id);
+                printf("\nNome:   %s",patrimonios[i].nome);
+                printf("\nSetor:  %s",patrimonios[i].setor);
+                printf("\nMarca:  %s",patrimonios[i].marca);
+                printf("\nStatus: %s\n",patrimonios[i].status);
+                printf("\n-----------------------------------");
+                patma_arq = fopen("arquivo_manutencao.txt","a"); //Abre o arquivo
+                printf("\n| Digite a Data, a Descricao e o Tecnico Responsavel |\n"); //Avisa ao usuario o que deve ser informado para cadastrar a manutencao
+                printf("\nData: ");
+                scanf("%s",&datamanutencao);
+                fflush(stdin);
+                printf("\nDescricao: ");
+                fgets(descricao_status, 50, stdin);
+                printf("\nTecnico: ");
+                scanf("%s",&tecnico);
+                strcpy(patrimonios[i].status,"Em Manutencao");
+                strcpy(patrimonios[i].datamanutencao, datamanutencao);
+                strcpy(patrimonios[i].descricao_status, descricao_status);
+                strcpy(patrimonios[i].tecnico, tecnico);
+                fprintf(patma_arq, "\n-------------------------------------------------\n");
+                fprintf(patma_arq, "ID: #%d\n",patrimonios[i].id);
+                fprintf(patma_arq, "Data da Manutencao: %s\n",patrimonios[i].datamanutencao);
+                fprintf(patma_arq, "Tecnico Responsavel: %s\n",patrimonios[i].tecnico);
+                fprintf(patma_arq, "Descricao: #%d\n",patrimonios[i].descricao_status);
+                fprintf(patma_arq, "\n-------------------------------------------------\n");
+
+                fclose(patma_arq);      //Fecha o arquivo
+
+                printf("\n*-------------------------------------*\n"); //Mostra o que foi cadastrado para o Cliente verificar
+                printf("\nManuencao cadastrada com sucesso!\n");
+                printf("\nData da Manutencao:  %s",patrimonios[i].datamanutencao);
+                printf("\nDescricao:  %s",patrimonios[i].descricao_status);
+                printf("\nTecnico Responsavel: %s\n",patrimonios[i].tecnico);
+                printf("*-------------------------------------*\n");
+            }else if(opcao==2){
+                printf("Manutencao Concluida com Sucesso!");
+                strcpy(patrimonios[i].status,"OK!");
+            }
+            printf("\n\nDeseja cadastrar manutencao em outro patrimonio?\n0 - Nao\n1 - Sim\n");
+            scanf("%d",&op);}}}}
 
 void menu(){
 	int opcao;
@@ -276,8 +345,10 @@ void menu(){
 		printf("\n2- Inventario de patrimonios");
 		printf("\n3- Mostrar um Patrimonio detalhadamente");
         printf("\n4- Efetuar Baixa de um Patrimonio");
+        printf("\n5- Editar Informacoes de um Patrimonio");
         printf("\n6- Efetuar Transferencia");
         printf("\n7- Registro de Transferencia");
+        printf("\n8- Manutencao");
 		printf("\n0- Sair ");
 		printf("\n\nDigite uma  opcao: ");
 		scanf("%d", &opcao);
@@ -288,7 +359,7 @@ void menu(){
 		//if(opcao == 5) edicao();
         if(opcao == 6) movimentacao();
 	   	if(opcao == 7) reg_movimentacao();
-		//if(opcao == 8) manutencao();
+		if(opcao == 8) manutencao();
 		//if(opcao == 9) reg_recebimento();
 		if(opcao == 0) return;}}
 
