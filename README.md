@@ -8,8 +8,8 @@
 [x] movimentacao();<br>
 [x] reg_movimentacao();<br>
 [x] manutencao();<br>
+[x] edicao();<br>
 
-Luís - [ ] edicao();<br>
 Gabriel - [ ] reg_recebimento();<br>
 
 ## Pontuação <br>
