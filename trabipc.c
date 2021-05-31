@@ -23,10 +23,8 @@ typedef struct{
     int status_transferencia;               //Se for igual a 1 o patrimonio deve ser mostrado, se for 0 não
 } patrimonio;
 
-patrimonio patrimonios[MAX_PATRIMONIOS];    //Vetor de patrimonios usando a struct patrimonio
-                                            //MAX_PATRIMONIOS define o limite da quantidade de patrimonios
-
 void cadastrar(){
+    patrimonio patrimonios[MAX_PATRIMONIOS];
 	char nome[50];
     char data[12];
     int id;
@@ -86,6 +84,7 @@ void cadastrar(){
         scanf("%d",&op);}}
 
 void inventario(){
+    patrimonio patrimonios[MAX_PATRIMONIOS];
     int id,d;
     system("cls");
     printf("*----------------------------*\n");
@@ -101,6 +100,7 @@ void inventario(){
         getch();} //pausa na tela até uma tecla ser digitada
 
 void mostra1(){
+    patrimonio patrimonios[MAX_PATRIMONIOS];
     int id;
     int op = 1;
     system("cls");
@@ -132,12 +132,12 @@ void mostra1(){
 
 
 void baixa(){
+    patrimonio patrimonios[MAX_PATRIMONIOS];
     system("cls");
     printf("*--------------------------------*\n");
     printf("| Efetuar Baixa de um Patrimonio | \n");
     printf("*--------------------------------*\n");
     int id;
-    inventario();
     printf("Digite o ID do patrimonio a ser removido: #");
     scanf("%d",&id);
     for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
@@ -149,6 +149,7 @@ void baixa(){
 }}}
 
 void edicao(){
+    patrimonio patrimonios[MAX_PATRIMONIOS];
     int id, op = 1,opcao;
     while(op==1){
     system("cls");
@@ -171,7 +172,7 @@ void edicao(){
           printf("\n3-Data:   %s",patrimonios[i].data);
           printf("\n4-Setor:  %s",patrimonios[i].setor);
           printf("\n5-Marca:  %s",patrimonios[i].marca);
-          printf("\n------------------------");
+          printf("\n------------------------\n");
           printf("Qual informacao deseja editar? ");
           scanf("%d",&opcao);
             if(opcao==1){
@@ -189,7 +190,7 @@ void edicao(){
             if(opcao==5){
               printf("\nDigite a nova Marca: ");
               scanf("%s" ,&patrimonios[i].marca);}
-          printf("\n------------------------");
+          printf("\n------------------------\n");
           printf("\n Patrimonio editado com sucesso!");
 
           }
@@ -200,23 +201,19 @@ void edicao(){
 
 
 void movimentacao(){
-    system("cls");
-    printf("*-----------------------*\n");
-    printf("| Transferir Patrimonio |\n");
-    printf("*-----------------------*\n");
-    int id,op=1;
-    char setor_destino[50];
-    char data_transferencia[12];
-    char data_retorno[12];
+    patrimonio patrimonios[MAX_PATRIMONIOS];
+    int id, op = 1,opcao;
     while(op==1){
-
-    printf("Digite o ID do patrimonio que foi movido: #");
-    scanf("%d",&id);
-    for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
-        if(patrimonios[i].id==id && strcmp(patrimonios[i].status,"Indisponivel")==0){
-            printf("[ERRO] Nao foi possivel encontrar este patrimonio. Verique o inventario.");
-           }
-        else if(patrimonios[i].id==id){
+    system("cls");
+    printf("*---------------------------------*\n");
+    printf("| Efetuar Edicao de um Patrimonio | \n");
+    printf("*---------------------------------*\n");
+    printf("Digite o ID do patrimonio a ser editado: #");
+    scanf("%d" ,&id);
+    for(int i = 0; i < MAX_PATRIMONIOS; i++){
+          if(patrimonios[i].id==id && strcmp(patrimonios[i].status,"Indisponivel")==0){
+            printf("[ERRO] Nao foi possivel encontrar este patrimonio. Verique o inventario.");}
+          else if(patrimonios[i].id==id){
         printf("\nEscolha uma opcao:\n");
         printf("1-Transferencia Definitiva:\n");
         printf("2-Transferencia provisoria:\n");
@@ -229,61 +226,46 @@ void movimentacao(){
         scanf("%d", &opc);
         if (opc == 1){
             printf("\nData de Transferencia: ");
-            scanf("%s",&data_transferencia);
-                printf("\nSetor de destino: ");
-            scanf("%s",&setor_destino);
-            for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
-                if(patrimonios[i].id==id){
-                fprintf(patm_arq, "\nId:                 #%d\n", id);
-                fprintf(patm_arq, "\n   Tranferencia Definitiva   \n");
-                strcpy(patrimonios[i].setor_origem,patrimonios[i].setor);
-                fprintf(patm_arq, "Setor Origem:          %s\n", patrimonios[i].setor);
+            scanf("%s",&patrimonios[i].data_transferencia);
+            printf("\nSetor de destino: ");
+            scanf("%s",&patrimonios[i].setor);
+            strcpy(patrimonios[i].status,"OK!");
+            patrimonios[i].status_transferencia = 1;                   //mostra que ja foi transferido
 
-                strcpy(patrimonios[i].setor,setor_destino);
-                fprintf(patm_arq, "Setor Atual:           %s\n", patrimonios[i].setor);
+            fprintf(patm_arq, "\nId:                 #%d\n", id);
+            fprintf(patm_arq, "\n   Tranferencia Definitiva   \n");
+            fprintf(patm_arq, "Setor Origem:          %s\n", patrimonios[i].setor);
+            scanf("%s",&patrimonios[i].setor);
+            fprintf(patm_arq, "Setor Atual:           %s\n", patrimonios[i].setor);
+            fprintf(patm_arq, "Data de Transferencia: %s\n",patrimonios[i].data_transferencia );
+            fprintf(patm_arq,"-------------------------------------------\n");
 
-                strcpy(patrimonios[i].data_transferencia,data_transferencia);
+            printf("\nTransferencia efetuada com sucesso!\n\n");
+            fclose(patm_arq);      //Fecha o arquivo
+}
+
+        if (opc == 2){
+            printf("\nData de Transferencia: ");
+            scanf("%s",&patrimonios[i].data_transferencia);
+            printf("\nData de retorno: ");
+            scanf("%s",&patrimonios[i].data_retorno);
+            printf("\nSetor de destino: ");
+            scanf("%s",&patrimonios[i].setor_destino);
+            strcpy(patrimonios[i].setor_origem,patrimonios[i].setor);
+            patrimonios[i].status_transferencia = 1;
+            strcpy(patrimonios[i].status,"Transferido Provisoriamente");
+
+
+                fprintf(patm_arq, "\nId:                    #%d\n", id);
+                fprintf(patm_arq, "\n   Tranferencia Provisoria   \n");
                 fprintf(patm_arq, "Data de Transferencia: %s\n",patrimonios[i].data_transferencia );
-
+                fprintf(patm_arq, "Data de Retorno:       %s\n",patrimonios[i].data_retorno );
+                fprintf(patm_arq, "Setor de Origem:       %s\n",patrimonios[i].setor_origem );
+                fprintf(patm_arq, "Setor Destino:         %s\n",patrimonios[i].setor_destino );
                 fprintf(patm_arq,"-------------------------------------------\n");
-                strcpy(patrimonios[i].status,"OK!");
-                patrimonios[i].status_transferencia = 1;                   //mostra que ja foi transferido
-
                 printf("\nTransferencia efetuada com sucesso!\n\n");
                 fclose(patm_arq);      //Fecha o arquivo
 }
-        }}
-        if (opc == 2){
-            printf("\nData de Transferencia: ");
-            scanf("%s",&data_transferencia);
-            printf("\nData de retorno: ");
-            scanf("%s",&data_retorno);
-            printf("\nSetor de destino: ");
-            scanf("%s",&setor_destino);
-
-            for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
-                if(patrimonios[i].id==id){
-                fprintf(patm_arq, "\nId:                    #%d\n", id);
-                fprintf(patm_arq, "\n   Tranferencia Provisoria   \n");
-
-                strcpy(patrimonios[i].data_transferencia,data_transferencia);
-                fprintf(patm_arq, "Data de Transferencia: %s\n",patrimonios[i].data_transferencia );
-
-                strcpy(patrimonios[i].data_retorno,data_retorno);
-                fprintf(patm_arq, "Data de Retorno:       %s\n",patrimonios[i].data_retorno );
-
-                strcpy(patrimonios[i].setor_origem,patrimonios[i].setor);
-                fprintf(patm_arq, "Setor de Origem:       %s\n",patrimonios[i].setor_origem );
-
-                strcpy(patrimonios[i].setor_destino,setor_destino);
-                fprintf(patm_arq, "Setor Destino:         %s\n",patrimonios[i].setor_destino );
-                fprintf(patm_arq,"-------------------------------------------\n");
-
-                patrimonios[i].status_transferencia = 1;
-                strcpy(patrimonios[i].status,"Transferido Provisoriamente");
-                printf("\nTransferencia efetuada com sucesso!\n\n");
-                fclose(patm_arq);      //Fecha o arquivo
-}}}
                if (opc ==3){
                 for(int i = 0 ; i < MAX_PATRIMONIOS; i++){
                 if(patrimonios[i].id==id){
@@ -294,7 +276,10 @@ void movimentacao(){
 }}      printf("\n1 - Continuar\n0 - Sair\n");
         scanf("%d",&op);}}
 
+
+
 void reg_movimentacao(){
+    patrimonio patrimonios[MAX_PATRIMONIOS];
     system("cls");
     printf("*-------------------------*\n");
     printf("| Registro de Moviemtacao |\n");
@@ -308,7 +293,7 @@ void reg_movimentacao(){
                 printf("\nSetor de Origem: %s\n",patrimonios[i].setor_origem);
                 printf("\nSetor Atual: %s\n",patrimonios[i].setor_destino);
                 printf("\nData de Transferencia: %s\n",patrimonios[i].data_transferencia);
-                printf("\nRetorno: %s\n\n",patrimonios[i].data_retorno);}
+                printf("\nData de   Retorno: %s\n\n",patrimonios[i].data_retorno);}
             else{
                 printf("Transferencia Definitiva\n");
                 printf("\nSetor de Origem: %s\n",patrimonios[i].setor_origem);
@@ -318,6 +303,7 @@ void reg_movimentacao(){
           getch();}
 
 void manutencao(){ //cadastra manutencoes para um patrimonio
+    patrimonio patrimonios[MAX_PATRIMONIOS];
     int id;
     int op = 1;
     int opcao;
@@ -376,7 +362,7 @@ void manutencao(){ //cadastra manutencoes para um patrimonio
                 printf("\nManuencao cadastrada com sucesso!\n");
                 printf("\nData da Manutencao:  %s",patrimonios[i].datamanutencao);
                 printf("\nDescricao:  %s",patrimonios[i].descricao_status);
-                printf("\nTecnico Responsavel: %s\n",patrimonios[i].tecnico);
+                printf("Tecnico Responsavel: %s\n",patrimonios[i].tecnico);
                 printf("*-------------------------------------*\n");
             }else if(opcao==2){
                 printf("Manutencao Concluida com Sucesso!");
@@ -387,6 +373,7 @@ void manutencao(){ //cadastra manutencoes para um patrimonio
 
 void menu(){
 	int opcao;
+    patrimonio patrimonios[MAX_PATRIMONIOS];
 	while(1){
         system("cls");
         printf("\n*---------------------------------------------------------------------------*");
@@ -411,7 +398,6 @@ void menu(){
         if(opcao == 6) movimentacao();
 	   	if(opcao == 7) reg_movimentacao();
 		if(opcao == 8) manutencao();
-		//if(opcao == 9) reg_recebimento();
 		if(opcao == 0) return;}}
 
 int main(){
