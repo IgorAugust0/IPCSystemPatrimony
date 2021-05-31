@@ -10,8 +10,6 @@
 [x] manutencao();<br>
 [x] edicao();<br>
 
-Gabriel - [ ] reg_recebimento();<br>
-
 ## Pontuação <br>
 [x] 02 pts Atender os requisitos<br>
 [ ] 02 pts Explicação detalhada do código<br>
