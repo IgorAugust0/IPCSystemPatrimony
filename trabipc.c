@@ -268,7 +268,7 @@ void reg_movimentacao(){
     patrimonio patrimonios[MAX_PATRIMONIOS];
     system("cls");
     printf("*-------------------------*\n");
-    printf("| Registro de Moviemtacao |\n");
+    printf("| Registro de Movimentacao |\n");
     printf("*-------------------------*\n");
     for (int i = 0; i < MAX_PATRIMONIOS; i++){
         if (patrimonios[i].status_transferencia==1){
