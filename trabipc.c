@@ -25,18 +25,8 @@ typedef struct{
 
 void cadastrar(){
     patrimonio patrimonios[MAX_PATRIMONIOS];
-	char nome[50];
-    char data[12];
-    int id;
-    char marca[50];
-    char setor[50];
-    char tecnico[50];
-    char datamanutencao[12];
-    char status[50];
-    int ativo;
-    int op=1;
+    int op=1,id;
     system("cls"); //Limpa o terminal
-
 
     while(op!=0){
 
@@ -48,32 +38,29 @@ void cadastrar(){
         printf("*-------------------------*\n");
         printf("| Cadastrar um Patrimonio |\n");
         printf("*-------------------------*\n");
-        printf("ID: ");
-        scanf("%d",&id);
-        printf("\nNome: ");
-        scanf("%s",&nome);
-        printf("\nSetor: ");
-        scanf("%s",&setor);
-        printf("\nData de aquisicao: ");
-        scanf("%s",&data);
-        printf("\nMarca: ");
-        scanf("%s",&marca);
+
+
         for (int i = 0;i< MAX_PATRIMONIOS;i++){
             if (patrimonios[i].ativo==0){                   //0->inativo...1->ativo - usar na baixa de patrimonios
-                patrimonios[i].id = id;
-                strcpy(patrimonios[i].data, data);
-                strcpy(patrimonios[i].nome, nome);
-                strcpy(patrimonios[i].marca, marca);
-                strcpy(patrimonios[i].status, "OK!");
-                strcpy(patrimonios[i].setor, setor);
+                printf("ID: ");
+                scanf("%d",&patrimonios[i].id);
+                printf("\nNome: ");
+                scanf("%s",&patrimonios[i].nome);
+                printf("\nSetor: ");
+                scanf("%s",&patrimonios[i].setor);
+                printf("\nData de aquisicao: ");
+                scanf("%s",&patrimonios[i].data);
+                printf("\nMarca: ");
+                scanf("%s",&patrimonios[i].marca);
                 patrimonios[i].ativo=1;
+                strcpy(patrimonios[i].status, "OK!");
 
                 //Registra os dados no arquivo
-                fprintf(pat_arq, "\nId:        #%d\n", id);
-                fprintf(pat_arq, "Nome:      %s\n", nome);
-                fprintf(pat_arq, "Setor:     %s\n", setor);
-                fprintf(pat_arq, "Aquisição: %s\n", data);
-                fprintf(pat_arq, "Marca:     %s\n\n", marca);
+                fprintf(pat_arq, "\nId:        #%d\n", patrimonios[i].id);
+                fprintf(pat_arq, "Nome:      %s\n", patrimonios[i].nome);
+                fprintf(pat_arq, "Setor:     %s\n", patrimonios[i].setor);
+                fprintf(pat_arq, "Aquisição: %s\n", patrimonios[i].data);
+                fprintf(pat_arq, "Marca:     %s\n\n", patrimonios[i].marca);
                 fprintf(pat_arq,"--------------------------\n");
 
                 fclose(pat_arq);      //Fecha o arquivo
@@ -228,10 +215,9 @@ void movimentacao(){
             printf("\nData de Transferencia: ");
             scanf("%s",&patrimonios[i].data_transferencia);
             printf("\nSetor de destino: ");
-            scanf("%s",&patrimonios[i].setor);
             strcpy(patrimonios[i].status,"OK!");
             patrimonios[i].status_transferencia = 1;                   //mostra que ja foi transferido
-
+            strcpy(patrimonios[i].setor_origem, patrimonios[i].setor);
             fprintf(patm_arq, "\nId:                 #%d\n", id);
             fprintf(patm_arq, "\n   Tranferencia Definitiva   \n");
             fprintf(patm_arq, "Setor Origem:          %s\n", patrimonios[i].setor);
@@ -307,9 +293,6 @@ void manutencao(){ //cadastra manutencoes para um patrimonio
     int id;
     int op = 1;
     int opcao;
-    char datamanutencao[12];
-    char descricao_status[100];
-    char tecnico[50];
 
     system("cls");
 
@@ -339,16 +322,13 @@ void manutencao(){ //cadastra manutencoes para um patrimonio
                 patma_arq = fopen("arquivo_manutencao.txt","a"); //Abre o arquivo
                 printf("\n| Digite a Data, a Descricao e o Tecnico Responsavel |\n"); //Avisa ao usuario o que deve ser informado para cadastrar a manutencao
                 printf("\nData: ");
-                scanf("%s",&datamanutencao);
+                scanf("%s",&patrimonios[i].datamanutencao);
                 fflush(stdin);
                 printf("\nDescricao: ");
-                fgets(descricao_status, 50, stdin);
+                fgets(patrimonios[i].descricao_status, 50, stdin);
                 printf("\nTecnico: ");
-                scanf("%s",&tecnico);
+                scanf("%s",&patrimonios[i].tecnico);
                 strcpy(patrimonios[i].status,"Em Manutencao");
-                strcpy(patrimonios[i].datamanutencao, datamanutencao);
-                strcpy(patrimonios[i].descricao_status, descricao_status);
-                strcpy(patrimonios[i].tecnico, tecnico);
                 fprintf(patma_arq, "\n-------------------------------------------------\n");
                 fprintf(patma_arq, "ID: #%d\n",patrimonios[i].id);
                 fprintf(patma_arq, "Data da Manutencao: %s\n",patrimonios[i].datamanutencao);
