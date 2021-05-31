@@ -7,13 +7,13 @@
 [x] baixa();<br>
 [x] movimentacao();<br>
 [x] reg_movimentacao();<br>
+[x] manutencao();<br>
 
 Luís - [ ] edicao();<br>
-Danilo - [ ] manutencao();<br>
 Gabriel - [ ] reg_recebimento();<br>
 
 ## Pontuação <br>
-[ ] 02 pts Atender os requisitos<br>
+[x] 02 pts Atender os requisitos<br>
 [ ] 02 pts Explicação detalhada do código<br>
 [x] 01 pt Uso de Vetor -> strings<br>
 [x] 01 pt Uso de Função<br>
