@@ -148,6 +148,57 @@ void baixa(){
         getch();
 }}}
 
+void edicao(){
+    int id, op = 1,opcao;
+    while(op==1){
+    system("cls");
+    printf("*---------------------------------*\n");
+    printf("| Efetuar Edicao de um Patrimonio | \n");
+    printf("*---------------------------------*\n");
+    printf("Digite o ID do patrimonio a ser editado: #");
+    scanf("%d" ,&id);
+    for(int i = 0; i < MAX_PATRIMONIOS; i++){
+          if(patrimonios[i].id==id && strcmp(patrimonios[i].status,"Indisponivel")==0){
+            printf("[ERRO] Nao foi possivel encontrar este patrimonio. Verique o inventario.");}
+          else if(patrimonios[i].id==id){
+          system("cls");
+          printf("\n------------------------");
+          printf("\n|     Patrimonio       |");
+          printf("\n------------------------\n");
+
+          printf("\n1-ID:     #%d",patrimonios[i].id);
+          printf("\n2-Nome:   %s",patrimonios[i].nome);
+          printf("\n3-Data:   %s",patrimonios[i].data);
+          printf("\n4-Setor:  %s",patrimonios[i].setor);
+          printf("\n5-Marca:  %s",patrimonios[i].marca);
+          printf("\n------------------------");
+          printf("Qual informacao deseja editar? ");
+          scanf("%d",&opcao);
+            if(opcao==1){
+              printf("\nDigite o novo ID: ");
+              scanf("%d" ,&patrimonios[i].id);}
+            if(opcao==2){
+              printf("\nDigite o novo Nome: ");
+              scanf("%s" ,&patrimonios[i].nome);}
+            if(opcao==3){
+              printf("\nDigite a nova Data: ");
+              scanf("%s" ,&patrimonios[i].data);}
+            if(opcao==4){
+              printf("\nDigite o novo Setor: ");
+              scanf("%s" ,&patrimonios[i].setor);}
+            if(opcao==5){
+              printf("\nDigite a nova Marca: ");
+              scanf("%s" ,&patrimonios[i].marca);}
+          printf("\n------------------------");
+          printf("\n Patrimonio editado com sucesso!");
+
+          }
+      }printf("\n1 - Continuar\n0 - Sair\n");
+       scanf("%d" ,&op);
+    }
+}
+
+
 void movimentacao(){
     system("cls");
     printf("*-----------------------*\n");
@@ -356,7 +407,7 @@ void menu(){
 		if(opcao == 2) inventario();
 		if(opcao == 3) mostra1();
 		if(opcao == 4) baixa();
-		//if(opcao == 5) edicao();
+		if(opcao == 5) edicao();
         if(opcao == 6) movimentacao();
 	   	if(opcao == 7) reg_movimentacao();
 		if(opcao == 8) manutencao();
